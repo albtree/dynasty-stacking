@@ -5,4 +5,5 @@ Credit to @Adeiko_FF for scraping and compiling sleeper league IDs
 
 Used this code to run multivariate data analysis on whether stacking Quarterbacks, with Wide Receivers or Tight Ends from the same team improved season long outcomes in Dynasty leagues.
 
-Limitations: Rosters were pulled as of June 2022 and so would not have all been the same as they were during, or at cessation of the 2021 season. However, given the results were far from statistical significance this is not a major issue. It would be beneficial to re-run this analysis immediately following the completion of the 2022 Fantasy Football season for more accurate results. However even this method would not account for the fact that team's rosters could have changed through the course of the 2022 season however I'm unable to come up with any clear solution to this problem.
+Limitations: Only one year of rosters and standings were pulled for this analysis. When rosters are pulled using ffscrapR, only the player’s current NFL team is pulled. Therefore, even if multiple years of data was pulled, the actual true number of stacks would be inaccurate given player movement e.g. Robert Woods would be attributed to be stacked with Ryan Tannehill as opposed to with Matthew Stafford. Although imperfect, given the results were far from statistical significance I don't think this is a major issue.
+
