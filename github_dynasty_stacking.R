@@ -68,6 +68,7 @@ for(i in c("657614272897060864",	"657706865051901952",	"657858459475206144",	"65
 
 FF_leagues_standings <- rbind(FF_Standings1, FF_Standings2, FF_Standings3,FF_Standings4,FF_Standings5)
 
+write.csv(FF_leagues_standings, "FF_league_standings.csv")
 
 FF_Leauges1 <- data.frame()
 for(i in c("529802803972382720",	"583997457159991296",	"552326737973448704",	"584166394652819456",	"551128490022969344",	"545076366689202176",	"565629193466064896",	"542717464431546368",	"553414398771109888",	"597071496640253952",	"560692817513869312",	"557327619071262720",	"577326685641289728",	"550820548559671296",	"515534529621680128",	"565612779871694848",	"515572900989526016",	"557129235622379520",	"551204913938857984",	"553448357334069248",	"515567517783629824",	"515935240036900864",	"558770556743905280",	"547226571734093824",	"515925831698006016",	"568459986434166784",	"529010027512254464",	"515644844447391744",	"535579641924521984",	"515569574431203328",	"574665022952534016",	"594977045507784704",	"582041810759622656",	"592586227283181568",	"568910689449996288",	"541733194751954944",	"564922616755032064",	"568532040638935040",	"567387092267712512",	"597629529221033984",	"583396717261541376",	"587326517713874944",	"567776088606724096",	"580151577692639232",	"576476486978564096",	"582756367941545984",	"575384019604783104",	"573036608989847552",	"585182999042109440",	"587103498240307200")){
@@ -127,9 +128,9 @@ for(i in c("657614272897060864",	"657706865051901952",	"657858459475206144",	"65
 
 FF_rosters_total <- rbind(FF_Leauges1, FF_Leauges2,FF_Leauges3,FF_Leauges4,FF_Leauges5)%>% filter(pos == "QB" | pos == "WR" | pos == "RB" | pos == "TE")
 
+write.csv(FF_rosters_total, "FF_rosters_total.csv")
+
 df <- FF_rosters_total
-
-
 
 
 ## Isolating starting QBs for 2021 season - top ~36 Fantasy Scoring QBs
@@ -214,7 +215,7 @@ records_and_stacks %>% ggplot(aes(x = single_stacks, y = allplay_winpct)) +
                   aes(label = paste("P-value = ", signif(..p.value.., digits = 2), sep = "")),
                   label.x = 5.3, label.y = 0.75)+
   labs(title = "Number of single stacks on a roster doesn't appear to impact All Play Win percentage",
-       subtitle = "1,740 Dynasty Teams in 2021                P-value <0.05 indicates significance",
+       subtitle = "2,557 Dynasty Teams across 2020 & 2021                P-value <0.05 indicates significance",
        x = "Number of single stacks (QB + 1 WR or TE from same team) on a roster",
        y = "All Play Win %",
        caption = "Data = ffverse. Author = @TAlbTree. Credit also to @EdnaBEASTmode and @Adeiko_FF") +
@@ -234,7 +235,7 @@ records_and_stacks %>% ggplot(aes(x = double_stacks, y = allplay_winpct)) +
                   aes(label = paste("P-value = ", signif(..p.value.., digits = 2), sep = "")),
                   label.x = 3.8, label.y = 0.75)+
   labs(title = "Neither does double stacks",
-       subtitle = "1,740 Dynasty Teams in 2021                P-value <0.05 indicates significance",
+       subtitle = "2,557 Dynasty Teams across 2020 & 2021                P-value <0.05 indicates significance",
        x = "Number of Double stacks (QB + 2 WR or TE from same team) on a roster",
        y = "All Play Win %",
        caption = "Data = ffverse. Author = @TAlbTree. Credit also to @EdnaBEASTmode and @Adeiko_FF")+
@@ -254,7 +255,7 @@ records_and_stacks %>% ggplot(aes(x = no_of_triple_or_more_stacks, y = allplay_w
                   aes(label = paste("P-value = ", signif(..p.value.., digits = 2), sep = "")),
                   label.x = 2.7, label.y = 0.75)+
   labs(title = "Or triple stacks",
-       subtitle = "1,740 Dynasty Teams in 2021                P-value <0.05 indicates significance",
+       subtitle = "2,557 Dynasty Teams across 2020 & 2021                P-value <0.05 indicates significance",
        x = "Number of Triple (QB + 3 WR or TE from same team) stacks on a roster",
        y = "All Play Win %",
        caption = "Data = ffverse. Author = @TAlbTree. Credit also to @EdnaBEASTmode and @Adeiko_FF")+
@@ -322,3 +323,12 @@ mean_allplay_df3 <- records_and_stacks %>%
         axis.text = element_text(size = 8))
 print(mean_allplay_df3)
 ggsave("mean_allplay_plots_3.png", bg = "#ffffff")
+
+
+## Not used
+## Joining stacks data with standings data
+
+stacks_and_records <- stacks %>%
+  left_join(FF_leagues_standings, by = c('franchise_id' = 'franchise_id',
+                                         'franchise_name' = 'franchise_name')) %>%
+  drop_na(allplay_winpct)
