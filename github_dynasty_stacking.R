@@ -323,12 +323,3 @@ mean_allplay_df3 <- records_and_stacks %>%
         axis.text = element_text(size = 8))
 print(mean_allplay_df3)
 ggsave("mean_allplay_plots_3.png", bg = "#ffffff")
-
-
-## Not used
-## Joining stacks data with standings data
-
-stacks_and_records <- stacks %>%
-  left_join(FF_leagues_standings, by = c('franchise_id' = 'franchise_id',
-                                         'franchise_name' = 'franchise_name')) %>%
-  drop_na(allplay_winpct)
